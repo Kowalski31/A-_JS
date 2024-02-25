@@ -38,3 +38,9 @@ function toggleBackgroundColor(elementID){
     }
 }
 
+function clearMaze(){
+    for(var i = 2; i < 10*10; i++){
+        var node = document.getElementById('node' + i);
+        node.style.backgroundColor = original;
+    }
+}

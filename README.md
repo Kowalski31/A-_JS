@@ -1,2 +1,2 @@
 # Path finding_JS
-Implement and visualize a algorithm in Javascript 
+Implement and visualize an path-finding algorithm in Javascript 

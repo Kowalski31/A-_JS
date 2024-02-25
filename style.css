@@ -2,11 +2,55 @@ body {
     background-color: rgb(53, 53, 53);
 }
 
+.container{
+    display: flex;
+}
+
+.left{
+    width: 50%;
+    height: 100%;
+}
+
+.right{
+    width: 50%;
+    height: 100%;
+    text-align: center;
+}
+
 .maze_container {
-    height: 30rem;
-    width: 50rem;
+    height: 42rem;
+    width: 80rem;
     display: flex;
     flex-direction: column;
+}
+
+h1 {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 3rem;
+    border-bottom: 4px solid rgb(175, 187, 244);
+}
+
+button {
+    background-color: rgb(66, 92, 218);
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    border: none;
+    transition: transform 0.2s;
+    
+}
+
+button:hover {
+    -ms-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .row {
