@@ -2,6 +2,7 @@ var wall = 'rgb(255, 255, 255)';
 var original = 'rgb(243, 190, 190)';
 var maze_length = 10;
 
+var path = 'rgb(124, 218, 23)'
 
 function setup() {
     var maze_container = document.getElementById('maze_container');
@@ -45,6 +46,9 @@ function clearMaze(){
         var node = document.getElementById('node' + i);
         node.style.backgroundColor = original;
     }
+
+    document.getElementById('node1').style.backgroundColor = 'rgb(23, 56, 218)';
+    document.getElementById('node100').style.backgroundColor = 'rgb(255, 0, 0)';
 }
 
 function startMaze(){
@@ -105,5 +109,77 @@ function startMaze(){
         }
     }
     
-    console.log(adjList);
+    var visited = [];
+    var prev = new Array(maze_length*maze_length).fill(0);
+
+    for (var i = 0; i < maze_length; i++){
+        visited[i] = new Array(maze_length).fill(false); 
+    }
+
+    var queue = [];
+
+    var solve = false;
+
+    queue.push([0, 0]);
+
+    while(queue.length > 0){
+        var nodeCoor = queue.splice(0, 1)[0];
+        var row_idx = nodeCoor[0];
+        var col_idx = nodeCoor[1];
+        var node_2 = maze[row_idx][col_idx];
+
+        visited[row_idx][col_idx] = true;  
+
+        if(row_idx == maze_length-1 && col_idx == maze_length-1){
+            solve = true;
+            break;
+        } 
+
+        var node_neighbors = adjList[node_2];
+        
+        for(let i = 0; i < node_neighbors.length;i++){
+            var node_neighbor = node_neighbors[i];
+            var node_row = node_neighbor[0];
+            var node_col = node_neighbor[1];
+
+            if(!visited[node_row][node_col]){
+                queue.push([node_row, node_col]);
+                visited[node_row][node_col] = true;
+                prev[maze[node_row][node_col] - 1] = node_2 - 1;
+            }
+        }
+    }
+
+    if(!solve){
+        alert("There is no solution!!! - I will clear the maze");
+        clearMaze();
+        return "";
+    }
+
+    var endNode = maze[maze_length-1][maze_length-1];
+
+    var previous = endNode - 1;
+
+    var loopControl = false;
+
+    while(true){
+        var node_3 = prev[previous];
+
+        try{    
+            document.getElementById('node'+(node_3 + 1)).style.backgroundColor = path;
+        }catch(err){
+            loopControl = true;
+        }
+
+        if(node_3 == 0){
+            loopControl = true;
+        }else{
+            previous = node_3;
+        }
+
+        if(loopControl){
+            break;
+        }
+    }
+
 }   
